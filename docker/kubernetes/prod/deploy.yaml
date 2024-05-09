@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-svc-producto-sync-sir
+  namespace: app-svc-producto-sync-sir
+  labels:
+    app: group-app-svc-producto-sync-sir
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: group-app-svc-producto-sync-sir
+      tier: deployment-svc-producto-sync-sir
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: group-app-svc-producto-sync-sir
+        tier: deployment-svc-producto-sync-sir
+        track: stable
+    spec:
+      nodeSelector:
+        agentpool: userpool
+      containers:
+        - name: servicio-web-sir-ecuador-prod
+          image: "kfcregistry.azurecr.io/servicio-web-sir-ecuador-prod:v1.0.0"
+          resources:
+            limits:
+              cpu: "1000m"
+              memory: "1536Mi"
+              ephemeral-storage: 100Mi
+            requests:
+              cpu: "772m"
+              memory: "1024Mi"
+              ephemeral-storage: 50Mi
+          imagePullPolicy: Always
+      ports:
+        - containerPort: 8080
+

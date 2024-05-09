@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-svc-producto-sync-sir
+  namespace: app-svc-producto-sync-sir
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: 'true'
+    service.beta.kubernetes.io/azure-load-balancer-internal-subnet: Subnet-AKS-EC-MAXPOINT
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 10.1.48.239
+  selector:
+    app: group-app-svc-producto-sync-sir
+    tier: deployment-svc-producto-sync-sir
+  ports:
+  - name: svc-svc-producto-sync-sir-port
+    protocol: "TCP"
+    port: 8080
+    targetPort: 8080

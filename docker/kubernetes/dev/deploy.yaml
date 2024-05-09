@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-svc-producto-sync-sir
+  namespace: app-svc-producto-sync-sir
+  labels:
+    app: svc-producto-sync-sir
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: svc-producto-sync-sir
+  template:
+    metadata:
+      labels:
+        app: svc-producto-sync-sir
+    spec:
+      containers:
+        - image: svc-producto-sync-sir:v1
+          name: svc-producto-sync-sir
+          resources:
+            limits:
+              cpu: "1000m"
+              memory: "1536Mi"
+              ephemeral-storage: 100Mi
+            requests:
+              cpu: "772m"
+              memory: "1024Mi"
+              ephemeral-storage: 50Mi
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 8080

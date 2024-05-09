@@ -1,0 +1,2 @@
+docker build -t svc-producto-sync-sir:v1 . --rm
+docker run  -d -p 8080:8080 --restart=always --name svc-producto-sync-sir svc-producto-sync-sir:v1
